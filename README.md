@@ -46,7 +46,7 @@ To be able to run Hadoop fs commands from the shell, we also need to set the hdf
 *This is a Spring XD "twittersearch | transform | hdfs" stream.*
 
 In order to query the Twitter data with an HAWQ external table we need to provide the Twitter data in a 
-comma-separated format with one line per tweet. The easiest way to do that is to provide a transformer script.
+tab-delimited format with one line per tweet. The easiest way to do that is to provide a transformer script.
 We have written one in Groovy that can be viewed or downloaded here: 
 [tweets-delim.groovy](https://raw.github.com/trisberg/demo-spring-xd-pivotal-hd/master/modules/processor/scripts/tweets-delim.groovy)
 
