@@ -106,5 +106,5 @@ Once the table is created we can query it:
      
 We can also run the following query to get the most used hash tag:
 
-    select hash_tag, count(*) from tweets group by hash_tag having count(*) > 2 order by count(*) desc;
+    select lower(hash_tag) as hash_tag, count(*) from tweets where hash_tag != '-' group by lower(hash_tag) order by count(*) desc limit 10;
     
