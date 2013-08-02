@@ -46,8 +46,10 @@ To be able to run Hadoop fs commands from the shell, we also need to set the hdf
 *This is a Spring XD "twittersearch | transform | hdfs" stream.*
 
 In order to query the Twitter data with an HAWQ external table we need to provide the Twitter data in a 
-tab-delimited format with one line per tweet. The easiest way to do that is to provide a transformer script.
-We have written one in Groovy that can be viewed or downloaded here: 
+tab-delimited format with one line per row. For this demo we will be querying the hash tags so we will create one 
+line per hash tag, so data will be de-normalized since tweets with multiple hash tags will have additional rows. 
+The easiest way to do this reformatting is is to provide a transformer script.We have written one in Groovy that can 
+be viewed or downloaded here: 
 [tweets-delim.groovy](https://raw.github.com/trisberg/demo-spring-xd-pivotal-hd/master/modules/processor/scripts/tweets-delim.groovy)
 
 To use this script in our XD stream we need to copy it to the Spring XD `modules/processor/scripts` directory. We can do that 
@@ -102,5 +104,7 @@ Once the table is created we can query it:
         85
     (1 row)
      
+We can also run the following query to get the most used hash tag:
 
-
+    select hash_tag, count(*) from tweets group by hash_tag having count(*) > 2 order by count(*) desc;
+    
