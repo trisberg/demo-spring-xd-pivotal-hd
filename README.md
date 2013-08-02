@@ -57,7 +57,7 @@ by opening another command prompt and entering the following commwnd:
 
 We also need to modify the connection properties for HDFS which are specified in `config\hadoop.properties`. We can edit that file using this command:
 
-    gedit /home/gpadmin/pring-xd-1.0.0.M2/xd/config/hadoop.properties
+    gedit /home/gpadmin/spring-xd-1.0.0.M2/xd/config/hadoop.properties
 
 Then change the content of the file to the following:
 
