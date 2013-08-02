@@ -19,7 +19,7 @@ Unzip the `spring-xd-1.0.0.M2.zip` file into a `/home/gpadmin/spring-xd-1.0.0.M2
 Open a command prompt and enter the following commands:
 
     export XD_HOME=/home/gpadmin/spring-xd-1.0.0.M2/xd
-    $XD_HOME/bin/xd-singlenode --hadoopDistro phd1 --httpPort8090
+    $XD_HOME/bin/xd-singlenode --hadoopDistro phd1 --httpPort 8090
 
 We need to specify the hadoop distro as phd1 since we are running against Pivotal HD and we also 
 need to specify the HTTP port since port 8080 is already in use on this VM.
@@ -43,4 +43,9 @@ To be able to run Hadoop fs commands from the shell, we also need to set the hdf
 
 ### Demo1 - Twitter search using HAWQ external table in hdfs
 
-This is a Spring XD "twittersearch | transform | hdfs" stream.
+*This is a Spring XD "twittersearch | transform | hdfs" stream.*
+
+In order to query the Twitter data with an HAWQ external table we need to provide the Twitter data in a 
+comma-separated format with one line per tweet. The easiest way to do that is to provide a transformer script.
+We have written one in Groovy that can be downloaded from here: 
+
