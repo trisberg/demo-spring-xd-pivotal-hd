@@ -96,6 +96,11 @@ following command:
 
 Once the table is created we can query it:
 
-     select count(*) from tweets;
+    select count(*) from tweets;
+     count
+    -------
+        85
+    (1 row)
      
+
 
