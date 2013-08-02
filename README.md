@@ -32,7 +32,7 @@ Open another command prompt and enter the following command:
     
 Once the shell starts up we need to connect to the Spring XD admin server:
 
-    xd:> admin config server --uri http://localhost:8090
+    server-unknown:> admin config server --uri http://localhost:8090
 
 To be able to run Hadoop fs commands from the shell, we also need to set the hdfs configuration:
 
