@@ -65,4 +65,34 @@ Then change the content of the file to the following:
 fs.default.name=hdfs://pivhdsne:8020
 ```
 
-We are now ready to create the stream, so we switch back to the Spring XD shell.
+We are now ready to create the stream, so we switch back to the Spring XD shell:
+
+    xd:> stream create --name tweets --definition "twittersearch --query='hadoop' | transform --script=tweets-delim.groovy | hdfs --rollover=10000"
+
+We should see the stream get created in the Spring XD admin window. From the shell we can list the streams using:
+
+    xd:> stream list
+    
+We let this stream run for a little while to collect some tweets. We can check that we actually have a data file created
+in hdfs by entering the following command in the Spring XDshell:
+
+    xd:> hadoop fs ls /xd/tweets
+
+if the `tweets-0.log` file has 0 size it just means that our rollover limit has not been reached yet.
+
+We can stop the stream to flus all the data using:
+
+    xd:> stream undeploy --name tweets
+    
+Now we can look at the content in the file in hdfs using:
+
+    xd:> hadoop fs cat /xd/tweets/tweets-0.log
+    
+So far so good. Next step is to import this data into HAWQ using the PXF External Tables feature. We open up a new command window
+and enter `psql` to start a PostgreSQL client shell. We are automatically logged in as gpadmin. Create the external table using the 
+following command:
+
+     CREATE EXTERNAL TABLE tweets(id BIGINT, from_user VARCHAR(255), created_at TIMESTAMPTZ, hash_tag VARCHAR(255), followers INTEGER, language_code VARCHAR(10), retweet_count INTEGER, retweet BOOLEAN) LOCATION ('gpxf://pivhdsne:50070/xd/tweets/*.log?Fragmenter=HdfsDataFragmenter') FORMAT 'TEXT' (DELIMITER = E'\t');
+
+
+
