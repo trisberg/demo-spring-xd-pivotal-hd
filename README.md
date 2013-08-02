@@ -92,7 +92,10 @@ So far so good. Next step is to import this data into HAWQ using the PXF Externa
 and enter `psql` to start a PostgreSQL client shell. We are automatically logged in as gpadmin. Create the external table using the 
 following command:
 
-     CREATE EXTERNAL TABLE tweets(id BIGINT, from_user VARCHAR(255), created_at TIMESTAMPTZ, hash_tag VARCHAR(255), followers INTEGER, language_code VARCHAR(10), retweet_count INTEGER, retweet BOOLEAN) LOCATION ('gpxf://pivhdsne:50070/xd/tweets/*.log?Fragmenter=HdfsDataFragmenter') FORMAT 'TEXT' (DELIMITER = E'\t');
+     CREATE EXTERNAL TABLE tweets(id BIGINT, from_user VARCHAR(255), created_at TIMESTAMPTZ, hash_tag VARCHAR(255), followers INTEGER, language_code VARCHAR(10), retweet_count INTEGER, retweet BOOLEAN) LOCATION ('gpxf://pivhdsne:50070/xd/tweets/*.log?Fragmenter=HdfsDataFragmenter&Accessor=TextFileAccessor&Resolver=TextResolver') FORMAT 'TEXT' (DELIMITER = E'\t');
 
+Once the table is created we can query it:
 
+     select count(*) from tweets;
+     
 
