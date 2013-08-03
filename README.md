@@ -82,7 +82,7 @@ in hdfs by entering the following command in the Spring XDshell:
 
 if the `tweets-0.log` file has 0 size it just means that our rollover limit has not been reached yet.
 
-We can stop the stream to flus all the data using:
+We can stop the stream to flush all the data using:
 
     xd:> stream undeploy --name tweets
     
@@ -104,7 +104,7 @@ Once the table is created we can query it:
         85
     (1 row)
      
-We can also run the following query to get the most used hash tag:
+We can also run the following query to get the hash tags that were used most often:
 
     select lower(hash_tag) as hash_tag, count(*) from tweets where hash_tag != '-' group by lower(hash_tag) order by count(*) desc limit 10;
     
