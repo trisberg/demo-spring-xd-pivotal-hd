@@ -64,7 +64,7 @@ We also need to modify the connection properties for HDFS which are specified in
 Then change the content of the file to the following:
 
 ```
-fs.default.name=hdfs://pivhdsne:8020
+fs.defaultFS=hdfs://pivhdsne:8020
 ```
 
 We are now ready to create the stream, so we switch back to the Spring XD shell:
