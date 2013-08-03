@@ -20,7 +20,8 @@ a `/home/gpadmin/spring-xd-1.0.0.M2` directory.
 Open a command prompt and enter the following commands:
 
     export XD_HOME=/home/gpadmin/spring-xd-1.0.0.M2/xd
-    $XD_HOME/bin/xd-singlenode --hadoopDistro phd1 --httpPort 8090
+    cd $XD_HOME
+    ./bin/xd-singlenode --hadoopDistro phd1 --httpPort 8090
 
 We need to specify the hadoop distro as phd1 since we are running against Pivotal HD and we also 
 need to specify the HTTP port since port 8080 is already in use on this VM.
