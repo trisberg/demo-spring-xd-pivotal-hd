@@ -14,7 +14,8 @@ http://www.springsource.org/download/community?project=Spring%20XD
 
 ### Step 3: Unzip and start Spring XD 1.0 M2 release
 
-Unzip the `spring-xd-1.0.0.M2.zip` file into a `/home/gpadmin/spring-xd-1.0.0.M2` directory.
+Unzip the `spring-xd-1.0.0.M2.zip` file into the home directory of the gpadmin user. This should create 
+a `/home/gpadmin/spring-xd-1.0.0.M2` directory.
 
 Open a command prompt and enter the following commands:
 
