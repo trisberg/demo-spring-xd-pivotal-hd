@@ -94,7 +94,11 @@ So far so good. Next step is to import this data into HAWQ using the PXF Externa
 and enter `psql` to start a PostgreSQL client shell. We are automatically logged in as gpadmin. Create the external table using the 
 following command:
 
-     CREATE EXTERNAL TABLE tweets(id BIGINT, from_user VARCHAR(255), created_at TIMESTAMPTZ, hash_tag VARCHAR(255), followers INTEGER, language_code VARCHAR(10), retweet_count INTEGER, retweet BOOLEAN) LOCATION ('pxf://pivhdsne:50070/xd/tweets/*.log?Fragmenter=HdfsDataFragmenter&Accessor=TextFileAccessor&Resolver=TextResolver') FORMAT 'TEXT' (DELIMITER = E'\t');
+     CREATE EXTERNAL TABLE tweets(
+       id BIGINT, from_user VARCHAR(255), created_at TIMESTAMPTZ, hash_tag VARCHAR(255), 
+       followers INTEGER, language_code VARCHAR(10), retweet_count INTEGER, retweet BOOLEAN) 
+     LOCATION ('pxf://pivhdsne:50070/xd/tweets/*.log?Fragmenter=HdfsDataFragmenter&Accessor=TextFileAccessor&Resolver=TextResolver') 
+     FORMAT 'TEXT' (DELIMITER = E'\t');
 
 Once the table is created we can query it:
 
@@ -106,5 +110,8 @@ Once the table is created we can query it:
      
 We can also run the following query to get the hash tags that were used most often:
 
-    select lower(hash_tag) as hash_tag, count(*) from tweets where hash_tag != '-' group by lower(hash_tag) order by count(*) desc limit 10;
+    select lower(hash_tag) as hash_tag, count(*) 
+    from tweets where hash_tag != '-' 
+    group by lower(hash_tag) 
+    order by count(*) desc limit 10;
     
