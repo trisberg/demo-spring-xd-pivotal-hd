@@ -177,5 +177,5 @@ Run the following command to see the data in the table:
      
 We can stop the stream from the Spring XD Shell using:
 
-    xd:> stream undeploy --name tweets
+    xd:> stream undeploy --name jdbc_tweets
 
