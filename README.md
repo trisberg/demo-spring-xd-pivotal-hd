@@ -122,4 +122,11 @@ We can also run the following query to get the hash tags that were used most oft
     from tweets where hash_tag != '-' 
     group by lower(hash_tag) 
     order by count(*) desc limit 10;
-    
+
+
+### Demo2 - Twitter search storing data directly into HAWQ using JDBC
+
+*This is a Spring XD "twittersearch | jdbc" stream.*
+
+
+
