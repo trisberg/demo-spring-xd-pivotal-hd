@@ -69,6 +69,12 @@ Then change the content of the file to the following:
 fs.defaultFS=hdfs://pivhdsne:8020
 ```
 
+Last config task is to add your Twitter consumerKey and consumerSecret to `config/twitter.properties`. We can edit that file using this command:
+
+    gedit /home/gpadmin/spring-xd-1.0.0.M2/xd/config/twitter.properties
+    
+See the [Spring XD docs](https://github.com/SpringSource/spring-xd/wiki/Sources#wiki-twittersearch) for more details.
+
 We are now ready to create the stream, so we switch back to the Spring XD shell:
 
     xd:> stream create --name tweets --definition "twittersearch --query='hadoop' | transform --script=tweets-delim.groovy | hdfs --rollover=10000"
