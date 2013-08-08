@@ -128,5 +128,54 @@ We can also run the following query to get the hash tags that were used most oft
 
 *This is a Spring XD "twittersearch | jdbc" stream.*
 
+For this demo we will be querying Twitter for tweets matching our query and then storing some of the fields in a table in
+HAWQ. We will insrt one row per tweet using the Spring XD JDBC sink.
 
+We need to modify the connection properties for JDBC which are specified in `config/jdbc.properties`. We can edit that file using this command:
+
+    gedit /home/gpadmin/spring-xd-1.0.0.M2/xd/config/jdbc.properties
+
+Then change the content of the file to the following:
+
+```
+driverClass=org.postgresql.Driver
+url=jdbc:postgresql:gpadmin
+username=gpadmin
+password=
+initializeDatabase=false
+```
+
+Next step is to create the table in HAWQ. We open up a new command window and enter `psql` to start a PostgreSQL client 
+shell. We are automatically logged in as gpadmin. Create the external table using the following command:
+
+     CREATE TABLE jdbc_tweets(
+       id BIGINT, from_user VARCHAR(255), created_at TIMESTAMPTZ, text VARCHAR(255), 
+       followers INTEGER, language_code VARCHAR(10), retweet_count INTEGER, retweet CHAR(5)); 
+
+We do't do any conversion of the incoming data so we need to limit the datatypes used to ones that don't require an explicit cast based on the data 
+available in the JSON document we get back from the Twitter search.
+
+Last config task is to add our Twitter consumerKey and consumerSecret to `config/twitter.properties`. We can edit that file using this command:
+
+    gedit /home/gpadmin/spring-xd-1.0.0.M2/xd/config/twitter.properties
+    
+See the [Spring XD docs](https://github.com/SpringSource/spring-xd/wiki/Sources#wiki-twittersearch) for more details.
+
+We are now ready to create the stream, so we switch back to the Spring XD shell:
+
+    xd:> stream create --name jdbc_tweets --definition "twittersearch --query='hadoop' | jdbc --columns=' id, fromUser, createdAt, text, followers, languageCode, retweetCount, retweet'"
+
+We should see the stream get created in the Spring XD admin window. From the shell we can list the streams using:
+
+    xd:> stream list
+    
+We let this stream run for a little while to collect some tweets. We can now check that we actually have a some data 
+in the table by opening up a new command window and entering `psql` to start a PostgreSQL client shell.
+Run the following command to see the data in the table:
+
+    select * from jdbc_tweets;
+     
+We can stop the stream from the Spring XD Shell using:
+
+    xd:> stream undeploy --name tweets
 
