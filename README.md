@@ -149,10 +149,10 @@ Next step is to create the table in HAWQ. We open up a new command window and en
 shell. We are automatically logged in as gpadmin. Create the external table using the following command:
 
      CREATE TABLE jdbc_tweets(
-       id BIGINT, from_user VARCHAR(255), created_at TIMESTAMPTZ, text VARCHAR(255), 
+       id BIGINT, from_user VARCHAR(255), created_at BIGINT, text VARCHAR(255), 
        followers INTEGER, language_code VARCHAR(10), retweet_count INTEGER, retweet CHAR(5)); 
 
-We do't do any conversion of the incoming data so we need to limit the datatypes used to ones that don't require an explicit cast based on the data 
+We don't do any conversion of the incoming data so we need to limit the datatypes used to ones that don't require an explicit cast based on the data 
 available in the JSON document we get back from the Twitter search.
 
 Last config task is to add our Twitter consumerKey and consumerSecret to `config/twitter.properties`. We can edit that file using this command:
