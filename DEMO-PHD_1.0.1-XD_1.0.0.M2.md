@@ -1,13 +1,12 @@
 # Demo using Spring XD with Pivotal HD
 
-(Using Pivotal HD 1.0.1 and Spring XD 1.0.0.M2)
+_(Using Pivotal HD 1.0.1 and Spring XD 1.0.0.M2)_
 
 ## Preparing the VM
 
 ### Step 1: Download, install and start Pivotal HD VM
 
-Instructions for downloading and starting the VM: 
-http://pivotalhd.cfapps.io/getting-started/pivotalhd-vm.html
+(Link for download not available ATM)
 
 ### Step 2: Download Spring XD 1.0 M2 release
 
