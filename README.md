@@ -31,7 +31,7 @@ We need to specify the hadoop distro as phd1 since we are running against Pivota
 
 Open another command prompt and enter the following command:
 
-    /home/gpadmin/spring-xd-1.0.0.M5/shell/bin/spring-xd-shell --hadoopDistro phd1
+    /home/gpadmin/spring-xd-1.0.0.M5/shell/bin/xd-shell --hadoopDistro phd1
     
 Once the shell starts up we need to need to set the hdfs configuration so we can run Hadoop fs commands from the shell:
 
