@@ -147,7 +147,7 @@ Next step is to create the table in HAWQ. We open up a new command window and en
 shell. We are automatically logged in as gpadmin. Create the table using the following command:
 
      CREATE TABLE jdbc_tweets(
-       id BIGINT, from_user VARCHAR(255), created_at TIMESTAMP, text VARCHAR(255), 
+       id BIGINT, from_user VARCHAR(255), created_at VARCHAR(30), text VARCHAR(255), 
        language_code VARCHAR(10), retweet_count INTEGER, retweet CHAR(5)); 
 
 We don't do any conversion of the incoming data so we need to limit the datatypes used to ones that don't require an explicit cast based on the data 
@@ -161,7 +161,7 @@ See the [Spring XD docs](https://github.com/SpringSource/spring-xd/wiki/Sources#
 
 We are now ready to create the stream, so we switch back to the Spring XD shell:
 
-    xd:> stream create --name jdbc_tweets --definition "twittersearch --query='hadoop' --outputType=application/json | jdbc --columns='id, from_user, created_at, text, language_code, retweet_count, retweet'"
+    xd:> stream create --name jdbc_tweets --definition "twittersearch --query='hadoop' --outputType=application/json | jdbc --columns='id, from_user, created_at, text, language_code, retweet_count, retweet' --initializeDatabase=false"
 
 We should see the stream get created in the Spring XD admin window. From the shell we can list the streams using:
 
