@@ -74,7 +74,7 @@ See the [Spring XD docs](https://github.com/SpringSource/spring-xd/wiki/Sources#
 
 We are now ready to create the stream, so we switch back to the Spring XD shell:
 
-    xd:> stream create --name tweets --definition "twittersearch --query='hadoop' | transform --script=tweets-delim.groovy | hdfs --rollover=10000"
+    xd:> stream create --name tweets --definition "twittersearch --query='hadoop' --outputType=application/json | transform --script=tweets-delim.groovy | hdfs --rollover=10000"
 
 We should see the stream get created in the Spring XD admin window. From the shell we can list the streams using:
 
