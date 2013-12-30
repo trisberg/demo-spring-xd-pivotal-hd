@@ -85,7 +85,7 @@ in hdfs by entering the following command in the Spring XDshell:
 
     xd:> hadoop fs ls /xd/tweets
 
-if the `tweets-0.log` file has 0 size it just means that our rollover limit has not been reached yet.
+if the `tweets-0.txt` file has 0 size it just means that our rollover limit has not been reached yet.
 
 We can stop the stream to flush all the data using:
 
@@ -93,16 +93,16 @@ We can stop the stream to flush all the data using:
     
 Now we can look at the content in the file in hdfs using:
 
-    xd:> hadoop fs cat /xd/tweets/tweets-0.log
+    xd:> hadoop fs cat /xd/tweets/tweets-0.txt
     
 So far so good. Next step is to import this data into HAWQ using the PXF External Tables feature. We open up a new command window
 and enter `psql` to start a PostgreSQL client shell. We are automatically logged in as gpadmin. Create the external table using the 
 following command:
 
      CREATE EXTERNAL TABLE tweets(
-       id BIGINT, from_user VARCHAR(255), created_at TIMESTAMPTZ, hash_tag VARCHAR(255), 
+       id BIGINT, from_user VARCHAR(255), created_at TIMESTAMP, hash_tag VARCHAR(255), 
        followers INTEGER, language_code VARCHAR(10), retweet_count INTEGER, retweet BOOLEAN) 
-     LOCATION ('pxf://pivhdsne:50070/xd/tweets/*.log?Fragmenter=HdfsDataFragmenter&Accessor=TextFileAccessor&Resolver=TextResolver') 
+     LOCATION ('pxf://pivhdsne:50070/xd/tweets/*.txt?Fragmenter=HdfsDataFragmenter&Accessor=TextFileAccessor&Resolver=TextResolver') 
      FORMAT 'TEXT' (DELIMITER = E'\t');
 
 Once the table is created we can query it:
