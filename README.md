@@ -161,7 +161,7 @@ See the [Spring XD docs](https://github.com/SpringSource/spring-xd/wiki/Sources#
 
 We are now ready to create the stream, so we switch back to the Spring XD shell:
 
-    xd:> stream create --name jdbc_tweets --definition "twittersearch --query='hadoop' --outputType=application/json | jdbc --columns='id, from_user, created_at, text, language_code, retweet_count, retweet' --initializeDatabase=false"
+    xd:> stream create --name jdbc_tweets --definition "twittersearch --query='hadoop' --outputType=application/json | jdbc --columns='id, from_user, created_at, text, language_code, retweet_count, retweet'"
 
 We should see the stream get created in the Spring XD admin window. From the shell we can list the streams using:
 
